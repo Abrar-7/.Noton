@@ -1,0 +1,13 @@
+stages:
+  - deploy
+cache:
+  paths:
+    - node_modules/
+deploy:
+  image: docker:dind
+  stage: deploy
+  script:
+    - docker build -t appx/front .
+    - docker run -d -p 3002:3002 appx/front
+  only:
+    - main
